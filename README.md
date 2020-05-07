@@ -8,7 +8,7 @@
   <!-- 홈 -->
     <img style="padding:10px;" width="300" src="https://user-images.githubusercontent.com/63249033/81192777-92bf6e00-8ff5-11ea-825a-8dc084838644.PNG">
  <!-- 카테고리 -->
-    <img style="padding:10px;" width="300" src="https://user-images.githubusercontent.com/63249033/81190751-2f344100-8ff3-11ea-8318-038bb9f423d7.PNG">
+    <img style="padding:10px;" width="300" src="https://user-images.githubusercontent.com/63249033/81307818-07f57680-90bc-11ea-8571-058df13e376f.PNG">
   <!-- 인문학 -->
     <img style="padding:10px;" width="300" src="https://user-images.githubusercontent.com/63249033/81190752-2f344100-8ff3-11ea-896c-66a87b77c8a5.PNG">
   <!-- 장바구니 -->
