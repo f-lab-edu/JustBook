@@ -13,7 +13,7 @@ public class UserController {
     private UserDao userDao;
 
     @PostMapping(path = "/users")
-    public User register(User user) {
+    public User addUser(User user) {
         userDao.insertUserData(user);
         return user;
     }
