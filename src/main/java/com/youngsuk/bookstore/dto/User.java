@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Getter
 @Setter
-@Repository
 public class User {
     private String userId;
     private String userPassword;
