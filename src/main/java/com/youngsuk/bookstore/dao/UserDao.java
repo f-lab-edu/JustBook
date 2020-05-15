@@ -1,6 +1,7 @@
 package com.youngsuk.bookstore.dao;
 
 import com.youngsuk.bookstore.dto.User;
+import com.youngsuk.bookstore.service.UserService;
 import org.apache.ibatis.session.SqlSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Repository;
  *  - 사용자의 요청을 받고 해당 요청에 대한 요구사항을 Service layer를 통해 받아서 사용자에게 건내주는 역할을 한다.
  * 2. Service layer (@Service 사용)
  *  - 비즈니스 로직을 처리하는 역할을 한다. 예를들어 시청 인원수를 올린다던가, 결제를 처리한다던가 하는 역할을 한다.
+ *  - Service layer가 필요한 이유는 관심사를 분리해서 유지보수를 편하게 할 수 있기 위해서다.
  * 3. persistance layer (@Repository 사용)
  *  - 데이터를 저장하고 삭제하고 수정하는등의 역할을 한다.
  */
@@ -45,19 +47,12 @@ public class UserDao {
 
     //NAMESPACE 변수가 수정되면 쿼리문이 동작하지 않기 때문에 private final 추가.
     //NAMESPACE 변수를 사용해서 쿼리를 여러번 날리기 때문에 메모리를 절약하기 위해서 static 키워드 사용함.
-    private final static String NAMESPACE = "com.youngsuk.bookstore.dao.UserDao";
+    private final static String NAMESPACE = "com.youngsuk.bookstore.dao.UserDao.";
 
     @Autowired
     private SqlSession sqlSession;
 
     public int insertUserData(User user){
-        makeUserPasswordEncrypt(user);
         return sqlSession.insert(NAMESPACE + "insertUserData", user);
     }
-
-    private void makeUserPasswordEncrypt(User user) {
-        String hashedPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt());
-        user.setUserPassword(hashedPassword);
-    }
-
 }
