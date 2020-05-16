@@ -1,9 +1,7 @@
-package com.youngsuk.bookstore.dao;
+package com.youngsuk.bookstore.repository;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.service.UserService;
 import org.apache.ibatis.session.SqlSession;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +26,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UserDao {
+public class UserRepository {
     /***
      * [접근 제어자 공부 정리]
      *
@@ -47,7 +45,7 @@ public class UserDao {
 
     //NAMESPACE 변수가 수정되면 쿼리문이 동작하지 않기 때문에 private final 추가.
     //NAMESPACE 변수를 사용해서 쿼리를 여러번 날리기 때문에 메모리를 절약하기 위해서 static 키워드 사용함.
-    private final static String NAMESPACE = "com.youngsuk.bookstore.dao.UserDao.";
+    private final static String NAMESPACE = "com.youngsuk.bookstore.repository.UserRepository.";
 
     @Autowired
     private SqlSession sqlSession;
