@@ -50,7 +50,11 @@ public class UserRepository {
     @Autowired
     private SqlSession sqlSession;
 
-    public int insertUserData(User user){
-        return sqlSession.insert(NAMESPACE + "insertUserData", user);
+    public int insertUserForRegister(User user){
+        return sqlSession.insert(NAMESPACE + "insertUserForRegister", user);
+    }
+
+    public String selectUserForConfirmPassword(User user){
+        return sqlSession.selectOne(NAMESPACE + "selectUserData", user.getUserId());
     }
 }
