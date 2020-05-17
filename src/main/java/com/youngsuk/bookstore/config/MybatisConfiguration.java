@@ -39,13 +39,13 @@ public class MybatisConfiguration {
      * 스프링 ioc 컨테이너가 관리하는 빈이 될 수 있도록 하는 어노테이션이다.
      * 메소드에 추가하는 어노테이션이고, 메소드 명이 빈의 id값, 타입은 빈의 타입, return에는 빈의 객체가 등록된다.
      */
-    @Bean
     /***
      * [@ConfigurationProperties 공부내용]
      * 스프링 부트에서 사용할 수 있는 어노테이션이다.
      * 외부 설정 파일을 통해서 객체에 값을 등록할 수 있다.
      * 설정 값은 따로 외부 파일에 두는게 관리할때 편할것 같아서 있는것 같다.
      */
+    @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {
         return new HikariConfig();
