@@ -1,10 +1,13 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.service.UserService;
+import com.youngsuk.bookstore.errorhander.LoginErrorHandler;
+import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /***
  * [@RestController 공부내용]
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserInformationService UserInformationService;
 
     /***
      *[@PostMapping 공부내용]
@@ -24,8 +27,24 @@ public class UserController {
      * 하지만 코드를 짧게 줄이기 위해서 @PostMapping 이라는 어노테이션에 주소값만 추가해주면 post 방식으로 값을 받을 수 있다.
      */
     @PostMapping(path = "/users")
-    public User addUser(User user) {
-        userService.makeUserPasswordEncrypt(user);
+    public User userAdd(User user) {
+        UserInformationService.makeUserPasswordEncrypt(user);
         return user;
     }
+
+    @PostMapping(path = "/users/login")
+    public LoginErrorHandler userCheckPasswordGiveSession(User user, HttpServletRequest request) {
+        LoginErrorHandler loginErrorHandler = new LoginErrorHandler();
+        loginErrorHandler.setPasswordCorrect(UserInformationService.isUserPasswordCollect(user));
+
+        if(loginErrorHandler.isPasswordCorrect()) {
+            UserInformationService.setUserSession(user, request);
+            return loginErrorHandler;
+        }
+        else {
+            return loginErrorHandler;
+        }
+    }
+
+
 }
