@@ -40,6 +40,10 @@ public class RedisConfiguration {
      * properties 파일에 있는 데이터들을 선언한 변수안에 넣어서 샤용할 수 있게 해준다.
      * 설정값을 따로 관리하고 싶을때 사용하면 좋다.
      * @PropertySource 어노테이션을 활용해서 해당 설정 파일의 경로를 명시해줘야지 사용할 수 있다.
+     *
+     * [설정 정보를 외부에 두는게 좋은 이유]
+     * ip, 암호같은 중요한 정보가 유출될 수 있기 때문에 외부 설정 파일로 빼는게 좋다.
+     * 환경에 따라 rdbms나 nosql과 같은 프로그램들의 설정이 달라질 수 있기 때문에 설정 정보를 한꺼번에 변경할 수 있도록 설정 정보를 외부에 두는게 좋다
      */
     @Value("${spring.redis.host}")
     private String redisHostName;
