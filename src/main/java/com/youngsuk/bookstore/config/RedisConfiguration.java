@@ -32,7 +32,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  */
 @EnableRedisHttpSession
 @Configuration
-@PropertySource("classpath:application.properties")
 public class RedisConfiguration {
     /***
      * [@Value 공부 내용]
