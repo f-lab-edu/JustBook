@@ -1,12 +1,14 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.responsehandler.LoginResponseHandler;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /***
@@ -33,17 +35,15 @@ public class UserController {
     }
 
     @PostMapping(path = "/users/login")
-    public LoginResponseHandler userCheckPasswordGiveSession(User user, HttpServletRequest request) {
-        LoginResponseHandler loginResponseHandler = new LoginResponseHandler();
+    public ResponseEntity<Object> userCheckPasswordGiveSession(User user, HttpServletRequest request, HttpServletResponse response) {
         //사용자가 올바른 패스워드를 입력했다면, response로 보낼 객체에 있는 boolean isPasswordCorrect 값을 true로 만들어준다.
-        loginResponseHandler.setPasswordCorrect(UserInformationService.isUserPasswordCollect(user));
 
-        if(loginResponseHandler.isPasswordCorrect()) {
+        if(UserInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
-            return loginResponseHandler;
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
         else {
-            return loginResponseHandler;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 
