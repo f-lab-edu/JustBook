@@ -1,7 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.errorhander.LoginErrorHandler;
+import com.youngsuk.bookstore.responsehandler.LoginResponseHandler;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,17 +33,27 @@ public class UserController {
     }
 
     @PostMapping(path = "/users/login")
-    public LoginErrorHandler userCheckPasswordGiveSession(User user, HttpServletRequest request) {
-        LoginErrorHandler loginErrorHandler = new LoginErrorHandler();
-        loginErrorHandler.setPasswordCorrect(UserInformationService.isUserPasswordCollect(user));
+    public LoginResponseHandler userCheckPasswordGiveSession(User user, HttpServletRequest request) {
+        LoginResponseHandler loginResponseHandler = new LoginResponseHandler();
+        //사용자가 올바른 패스워드를 입력했다면, response로 보낼 객체에 있는 boolean isPasswordCorrect 값을 true로 만들어준다.
+        loginResponseHandler.setPasswordCorrect(UserInformationService.isUserPasswordCollect(user));
 
-        if(loginErrorHandler.isPasswordCorrect()) {
-            UserInformationService.setUserSession(user, request);
-            return loginErrorHandler;
+        if(loginResponseHandler.isPasswordCorrect()) {
+            setUserSession(user, request);
+            return loginResponseHandler;
         }
         else {
-            return loginErrorHandler;
+            return loginResponseHandler;
         }
+    }
+
+    public void setUserSession(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("userId",user.getUserId());
+        //로그인한 사용자가 결제 페이지에 머무르는 시간이 가장 많을것이라고 생각했다.
+        //사용자가 이사를해서 주소를 새로 입력하거나 핸드폰을 바꿔서 번호를 바꿀 수도 있기 때문이다.
+        //결제를 할때도 시간이 걸릴것이라고 생각했다. 이런 시간들을 고려했을때 10분이면 적절할것이라고 생각했다.
+        session.setMaxInactiveInterval(60*10);
     }
 
 
