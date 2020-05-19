@@ -29,21 +29,20 @@ public class UserController {
      * 하지만 코드를 짧게 줄이기 위해서 @PostMapping 이라는 어노테이션에 주소값만 추가해주면 post 방식으로 값을 받을 수 있다.
      */
     @PostMapping(path = "/users")
-    public User userAdd(User user) {
+    public ResponseEntity userAdd(User user) {
         UserInformationService.makeUserPasswordEncrypt(user);
-        return user;
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping(path = "/users/login")
-    public ResponseEntity<Object> userCheckPasswordGiveSession(User user, HttpServletRequest request) {
-        //사용자가 올바른 패스워드를 입력했다면, response로 보낼 객체에 있는 boolean isPasswordCorrect 값을 true로 만들어준다.
+    public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
 
         if(UserInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
         }
     }
 
