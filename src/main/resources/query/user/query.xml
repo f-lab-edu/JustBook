@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.youngsuk.bookstore.repository.UserRepository">
+    <insert id="insertUserForRegister">
+        INSERT INTO user (user_id, user_password, user_name, user_email)
+        VALUES (#{userId},#{userPassword},#{userName},#{userEmail})
+    </insert>
+
+    <select id="selectUserData" resultType="string">
+        SELECT user_password FROM user
+        WHERE user_id = (#{userId})
+    </select>
+</mapper>
