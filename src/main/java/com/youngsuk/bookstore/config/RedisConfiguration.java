@@ -32,7 +32,12 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * (@EnableRedisHttpSession 스프링 공홈 자료)
  * https://docs.spring.io/spring-session/docs/current/reference/html5/guides/java-redis.html
  */
-@EnableRedisHttpSession
+
+
+//로그인한 사용자가 결제 페이지에 머무르는 시간이 가장 많을것이라고 생각했다.
+//사용자가 이사를해서 주소를 새로 입력하거나 핸드폰을 바꿔서 번호를 바꿀 수도 있기 때문이다.
+//결제를 할때도 시간이 걸릴것이라고 생각했다. 이런 시간들을 고려했을때 10분이면 적절할것이라고 생각했다.
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60 * 10)
 @Configuration
 public class RedisConfiguration {
     /***
@@ -56,9 +61,8 @@ public class RedisConfiguration {
 
 
     /***
-     * [lettuce 선정 이유]
-     * 스프링 개발자를 포함한 대부분의 커뮤니티 사용자들이 lettuce를 선호해서 사용했다.
-     * 하지만 jedis & lettuce & redisson 등의 redis client 중 어떤것이 더 좋은지 명확하게 알기 위해서 테스트를 할것이다.
+     * TODO lettus VS jedis 블로그 포스팅 할것
+     *
      */
     @Bean
     public RedisConnectionFactory lettuceConnectionFactory(){
