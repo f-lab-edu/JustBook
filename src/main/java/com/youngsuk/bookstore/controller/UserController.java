@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/users/login")
-    public ResponseEntity<Object> userCheckPasswordGiveSession(User user, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<Object> userCheckPasswordGiveSession(User user, HttpServletRequest request) {
         //사용자가 올바른 패스워드를 입력했다면, response로 보낼 객체에 있는 boolean isPasswordCorrect 값을 true로 만들어준다.
 
         if(UserInformationService.isUserPasswordCollect(user)) {
@@ -47,7 +47,7 @@ public class UserController {
         }
     }
 
-    public void setUserSession(User user, HttpServletRequest request) {
+    private void setUserSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("userId",user.getUserId());
     }
