@@ -3,7 +3,6 @@ package com.youngsuk.bookstore.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -28,7 +27,10 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  *
  * [@EnableRedisHttpSession 공부 내용]
  * 이 어노테이션은 springSessionRepositoryFilter 이라는 빈을 생성시킨다.
- * 이 필터는 HttpSession이 레디스에 의해 동작하도록 한다.
+ * 이 필터는 HttpSession의 구현체를 Redis로 변경한다.
+ *
+ * (@EnableRedisHttpSession 스프링 공홈 자료)
+ * https://docs.spring.io/spring-session/docs/current/reference/html5/guides/java-redis.html
  */
 @EnableRedisHttpSession
 @Configuration
