@@ -50,10 +50,6 @@ public class UserController {
     public void setUserSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("userId",user.getUserId());
-        //로그인한 사용자가 결제 페이지에 머무르는 시간이 가장 많을것이라고 생각했다.
-        //사용자가 이사를해서 주소를 새로 입력하거나 핸드폰을 바꿔서 번호를 바꿀 수도 있기 때문이다.
-        //결제를 할때도 시간이 걸릴것이라고 생각했다. 이런 시간들을 고려했을때 10분이면 적절할것이라고 생각했다.
-        session.setMaxInactiveInterval(60*10);
     }
 
 
