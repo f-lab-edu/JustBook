@@ -29,6 +29,8 @@ public class MybatisConfiguration {
      * 만약 interface에 @autowired 어노테이션을 걸었을 경우
      * 스프링은 interface를 구현한 여러개의 클래스중 어떤 클래스를 주입해줘야되는지 모르게 된다.
      * 이떄 내가 주입하고 싶은 클래스에 @primary 어노테이션을 추가하면 된다.
+     * bean 이름을 사용하여 주입할때도 primary를 사용할 수 있다.
+     *
      *
      */
     @Autowired
@@ -61,7 +63,7 @@ public class MybatisConfiguration {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/query/**/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:/query/**/*.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
