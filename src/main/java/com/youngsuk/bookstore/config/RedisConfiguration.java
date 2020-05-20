@@ -49,6 +49,7 @@ public class RedisConfiguration {
      * [설정 정보를 외부에 두는게 좋은 이유]
      * ip, 암호같은 중요한 정보가 유출될 수 있기 때문에 외부 설정 파일로 빼는게 좋다.
      * 환경에 따라 rdbms나 nosql과 같은 프로그램들의 설정이 달라질 수 있기 때문에 설정 정보를 한꺼번에 변경할 수 있도록 설정 정보를 외부에 두는게 좋다
+     * 추가 정보) jvm option을 활용해서 설정값을 변경하는 방법도 있다.
      */
     @Value("${spring.redis.host}")
     private String redisHostName;

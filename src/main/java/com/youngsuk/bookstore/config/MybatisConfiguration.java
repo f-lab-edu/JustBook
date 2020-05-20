@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 public class MybatisConfiguration {
 
     /***
-     * [@Atuowired 공부내용]
+     * [@Autowired 공부내용]
      *  @Autwired가 달려있는 ioc 컨테이너에 존재하는 빈을 해당 클래스에서 주입을 받아서 사용할 수 있게 해준다.
      *
      * [@Primary 공부내용]
@@ -31,6 +31,17 @@ public class MybatisConfiguration {
      * 이떄 내가 주입하고 싶은 클래스에 @primary 어노테이션을 추가하면 된다.
      * bean 이름을 사용하여 주입할때도 primary를 사용할 수 있다.
      *
+     * [@Qualifier VS @Primary 비교]
+     * @Qualifier가 우선시 된다.
+     * interface c를 구현한 class a, class b를 만들고
+     * class a에는 @Primary를 주고, class b는 @Qualifer를 줬을때
+     * class b에 있는 값만 출력되고 class a에 있는 값은 무시된다.
+     *
+     * [@Resource VS @Primary 비교]
+     * @Resource가 우선시 된다.
+     * interface c를 구현한 class a, class b를 만들고
+     * class a에는 @Primary를 주고, class b를 @Resource(name ="b") 를 사용해서 주입했을때
+     * class b에 있는 값만 출력되고 class a에 있는 값은 무시된다.
      *
      */
     @Autowired

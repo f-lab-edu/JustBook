@@ -1,4 +1,4 @@
 #iml 파일을 제외 합니다.
 *.iml
 .idea/
-.class
+target/
