@@ -1,6 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
+import com.youngsuk.bookstore.response.ResponseInformation;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /***
  * [@RestController 공부내용]
@@ -21,7 +22,9 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private UserInformationService UserInformationService;
+    private UserInformationService userInformationService;
+    @Autowired
+    private ResponseInformation responseInformation;
 
     /***
      *[@PostMapping 공부내용]
@@ -30,19 +33,22 @@ public class UserController {
      */
     @PostMapping(path = "/users")
     public ResponseEntity userAdd(User user) {
-        UserInformationService.makeUserPasswordEncrypt(user);
+        String encryptPassword = userInformationService.makeUserPasswordEncrypt(user);
+        user.setUserPassword(encryptPassword);
+        responseInformation.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping(path = "/users/login")
     public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
-
-        if(UserInformationService.isUserPasswordCollect(user)) {
+        if(userInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
+            responseInformation.makeLoginResponseInformation(user, true);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
+            responseInformation.makeLoginResponseInformation(user, false);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
     }
 

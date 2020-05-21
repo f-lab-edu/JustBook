@@ -6,19 +6,17 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Service
 public class UserInformationService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public void makeUserPasswordEncrypt(User user) {
+    public String makeUserPasswordEncrypt(User user) {
         String hashedPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt());
         user.setUserPassword(hashedPassword);
         inserUserData(user);
+        return hashedPassword;
     }
 
     public void inserUserData(User user) {
