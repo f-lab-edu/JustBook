@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.common.ResponseMessage;
+import com.youngsuk.bookstore.common.ResponseUtils;
 import com.youngsuk.bookstore.dto.User;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,7 @@ public class UserController {
 
     @Autowired
     private UserInformationService userInformationService;
-    @Autowired
-    private ResponseMessage responseMessage;
+    private ResponseUtils responseUtils;
 
     /***
      *[@PostMapping 공부내용]
@@ -33,9 +32,8 @@ public class UserController {
      */
     @PostMapping(path = "/users")
     public ResponseEntity userAdd(User user) {
-        String encryptPassword = userInformationService.makeUserPasswordEncrypt(user);
-        user.setUserPassword(encryptPassword);
-        responseMessage.makeUserAddResponseInformation(user);
+        user = userInformationService.makeUserPasswordEncrypt(user);
+        responseUtils.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
@@ -46,12 +44,12 @@ public class UserController {
         if(userInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
             isloginSuccess = true;
-            responseMessage.makeLoginResponseInformation(user, isloginSuccess);
+            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
             isloginSuccess = false;
-            responseMessage.makeLoginResponseInformation(user, isloginSuccess);
+            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
     }

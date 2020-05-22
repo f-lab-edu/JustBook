@@ -12,11 +12,11 @@ public class UserInformationService {
     @Autowired
     private UserRepository userRepository;
 
-    public String makeUserPasswordEncrypt(User user) {
+    public User makeUserPasswordEncrypt(User user) {
         String hashedPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt());
         user.setUserPassword(hashedPassword);
         inserUserData(user);
-        return hashedPassword;
+        return user;
     }
 
     public void inserUserData(User user) {
