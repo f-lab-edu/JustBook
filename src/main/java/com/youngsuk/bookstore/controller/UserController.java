@@ -1,7 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.common.ResponseUtils;
 import com.youngsuk.bookstore.dto.User;
+import com.youngsuk.bookstore.common.LoginResponse;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,6 @@ public class UserController {
 
     @Autowired
     private UserInformationService userInformationService;
-    private ResponseUtils responseUtils;
 
     /***
      *[@PostMapping 공부내용]
@@ -31,25 +30,28 @@ public class UserController {
      * 하지만 코드를 짧게 줄이기 위해서 @PostMapping 이라는 어노테이션에 주소값만 추가해주면 post 방식으로 값을 받을 수 있다.
      */
     @PostMapping(path = "/users")
-    public ResponseEntity<User> userAdd(User user) {
+    public ResponseEntity userAdd(User user) {
         user = userInformationService.makeUserPasswordEncrypt(user);
-        responseUtils.makeUserAddResponseInformation(user);
+        user = LoginResponse.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping(path = "/users/login")
-    public ResponseEntity<User> userCheckPasswordGiveSession(User user, HttpServletRequest request) {
+    public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
         boolean isloginSuccess;
+        String LoginMessage;
 
         if(userInformationService.isUserPasswordCorrect(user)) {
             setUserSession(user, request);
             isloginSuccess = true;
-            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
+            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
             isloginSuccess = false;
-            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
+            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
     }
