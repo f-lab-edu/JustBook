@@ -1,7 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.common.ResponseUtils;
 import com.youngsuk.bookstore.dto.User;
+import com.youngsuk.bookstore.common.LoginResponse;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,6 @@ public class UserController {
 
     @Autowired
     private UserInformationService userInformationService;
-    private ResponseUtils responseUtils;
 
     /***
      *[@PostMapping 공부내용]
@@ -33,23 +32,26 @@ public class UserController {
     @PostMapping(path = "/users")
     public ResponseEntity userAdd(User user) {
         user = userInformationService.makeUserPasswordEncrypt(user);
-        responseUtils.makeUserAddResponseInformation(user);
+        user = LoginResponse.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping(path = "/users/login")
     public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
         boolean isloginSuccess;
+        String LoginMessage;
 
         if(userInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
             isloginSuccess = true;
-            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
+            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
             isloginSuccess = false;
-            responseUtils.makeLoginResponseInformation(user, isloginSuccess);
+            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
     }
