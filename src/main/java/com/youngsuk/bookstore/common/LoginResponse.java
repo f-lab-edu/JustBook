@@ -37,5 +37,5 @@ public class LoginResponse {
 
         return user;
     }
-
 }
+

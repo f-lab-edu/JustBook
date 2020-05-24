@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.youngsuk.bookstore.repository.BookRepository">
+    <resultMap id="DBNameMappingBookDTO" type="com.youngsuk.bookstore.dto.Book">
+        <result column="id" property="id" />
+        <result column="book_name" property="bookName" />
+        <result column="author_name" property="bookWriter" />
+        <result column="book_cost" property="bookCost" />
+        <result column="book_category" property="bookCategoryName" />
+        <result column="book_publish_date" property="bookPublishDate" />
+        <result column="book_introduce" property="bookIntroduce" />
+        <result column="book_index_text" property="bookIndexDescription" />
+        <result column="book_buy_count" property="bookBuyNumber" />
+        <result column="book_like_count" property="bookLikeNumber" />
+    </resultMap>
+
+    <select id="selectBookCategoryData" resultMap="DBNameMappingBookDTO">
+        select book.id, book.book_name, author.author_name, book.book_publish_date
+            , book.book_cost, book.book_like_count, book.book_buy_count
+        from book left join author on book.id = author.id
+        where book_category = (#{bookCategoryName})
+        order by id DESC LIMIT 10;
+    </select>
+    
+    <select id="selectSingleBookData" resultMap="DBNameMappingBookDTO">
+        select book.book_name, author.author_name, book.book_publish_date
+            , book.book_cost, book.book_like_count, book.book_buy_count
+            , book.book_index_text, book.book_introduce
+        from book left join author
+        on book.id = author.id
+        where book.id = (#{id})
+    </select>
+</mapper>
+
