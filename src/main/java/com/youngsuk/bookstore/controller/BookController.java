@@ -24,8 +24,4 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(bookList);
     }
 
-//    public ResponseEntity getBookDetailInformation(Book book) {
-//
-//    }
-
 }
