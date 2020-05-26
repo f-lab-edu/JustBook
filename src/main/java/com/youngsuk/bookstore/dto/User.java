@@ -10,4 +10,5 @@ public class User {
     private String userPassword;
     private String userName;
     private String userEmail;
+    private String userMessage;
 }

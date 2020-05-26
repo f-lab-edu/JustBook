@@ -1,10 +1,16 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.service.UserService;
+import com.youngsuk.bookstore.common.LoginResponseUtils;
+import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 /***
  * [@RestController 공부내용]
@@ -16,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserInformationService userInformationService;
 
     /***
      *[@PostMapping 공부내용]
@@ -24,8 +30,36 @@ public class UserController {
      * 하지만 코드를 짧게 줄이기 위해서 @PostMapping 이라는 어노테이션에 주소값만 추가해주면 post 방식으로 값을 받을 수 있다.
      */
     @PostMapping(path = "/users")
-    public User addUser(User user) {
-        userService.makeUserPasswordEncrypt(user);
-        return user;
+    public ResponseEntity userAdd(User user) {
+        user = userInformationService.makeUserPasswordEncrypt(user);
+        user = LoginResponseUtils.makeUserAddResponseInformation(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
+    @PostMapping(path = "/users/login")
+    public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
+        boolean isloginSuccess;
+        String LoginMessage;
+
+        if(userInformationService.isUserPasswordCorrect(user)) {
+            setUserSession(user, request);
+            isloginSuccess = true;
+            LoginMessage = LoginResponseUtils.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponseUtils.makeLoginResponseUserInformation(LoginMessage, user);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+        else {
+            isloginSuccess = false;
+            LoginMessage = LoginResponseUtils.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponseUtils.makeLoginResponseUserInformation(LoginMessage, user);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+        }
+    }
+
+    private void setUserSession(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("userId",user.getUserId());
+    }
+
+
 }
