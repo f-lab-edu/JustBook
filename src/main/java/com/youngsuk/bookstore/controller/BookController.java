@@ -19,7 +19,7 @@ public class BookController {
 
     @GetMapping("/books/category/{categoryName}")
     public ResponseEntity<List<Book>> getBookByCategory(@PathVariable String categoryName, Book book) {
-        List<Book> bookList = bookService.selectBookCategory(book, categoryName);
+        List<Book> bookList = bookService.selectBookByCategory(book, categoryName);
 
         return ResponseEntity.status(HttpStatus.OK).body(bookList);
     }

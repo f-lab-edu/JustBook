@@ -1,7 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.common.LoginResponse;
+import com.youngsuk.bookstore.common.LoginResponseUtils;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping(path = "/users")
     public ResponseEntity userAdd(User user) {
         user = userInformationService.makeUserPasswordEncrypt(user);
-        user = LoginResponse.makeUserAddResponseInformation(user);
+        user = LoginResponseUtils.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
@@ -44,14 +44,14 @@ public class UserController {
         if(userInformationService.isUserPasswordCollect(user)) {
             setUserSession(user, request);
             isloginSuccess = true;
-            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
-            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
+            LoginMessage = LoginResponseUtils.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponseUtils.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
             isloginSuccess = false;
-            LoginMessage = LoginResponse.makeLoginResponseSuccessMessage(isloginSuccess);
-            user = LoginResponse.makeLoginResponseUserInformation(LoginMessage, user);
+            LoginMessage = LoginResponseUtils.makeLoginResponseSuccessMessage(isloginSuccess);
+            user = LoginResponseUtils.makeLoginResponseUserInformation(LoginMessage, user);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
     }

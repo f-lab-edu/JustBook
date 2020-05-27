@@ -7,14 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.youngsuk.bookstore.common.MyBatisNameSpaceConstants.BookRepositoryNameSpace;
+
 @Repository
 public class BookRepository {
-    private final static String NAMESPACE = "com.youngsuk.bookstore.repository.BookRepository.";
-
     @Autowired
     private SqlSession sqlSession;
 
-    public List<Book> selectBookCategory(Book book){
-        return sqlSession.selectList(NAMESPACE + "selectBookCategoryData", book);
+    public List<Book> selectBookByCategory(String categoryName){
+        return sqlSession.selectList(BookRepositoryNameSpace + "selectBookByCategory", categoryName);
     }
 }

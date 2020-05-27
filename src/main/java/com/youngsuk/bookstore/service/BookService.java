@@ -12,9 +12,9 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> selectBookCategory(Book book, String categoryName) {
+    public List<Book> selectBookByCategory(Book book, String categoryName) {
         book.setBookCategoryName(categoryName);
-        List<Book> bookList = bookRepository.selectBookCategory(book);
+        List<Book> bookList = bookRepository.selectBookByCategory(categoryName);
 
         return bookList;
     }

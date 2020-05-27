@@ -15,7 +15,7 @@
         <result column="book_like_count" property="bookLikeNumber" />
     </resultMap>
 
-    <select id="selectBookCategoryData" resultMap="DBNameMappingBookDTO">
+    <select id="selectBookByCategory" resultMap="DBNameMappingBookDTO">
         select book.id, book.book_name, author.author_name, book.book_publish_date
             , book.book_cost, book.book_like_count, book.book_buy_count
         from book left join author on book.id = author.id
