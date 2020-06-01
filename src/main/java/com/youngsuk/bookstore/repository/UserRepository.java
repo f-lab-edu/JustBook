@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import static com.youngsuk.bookstore.common.MyBatisNameSpaceConstants.UserRepositoryNameSpace;
 
 
 /***
@@ -43,18 +44,14 @@ public class UserRepository {
      *    -  어떤 클래스에서든지 접근 가능하다.
      */
 
-    //NAMESPACE 변수가 수정되면 쿼리문이 동작하지 않기 때문에 private final 추가.
-    //NAMESPACE 변수를 사용해서 쿼리를 여러번 날리기 때문에 메모리를 절약하기 위해서 static 키워드 사용함.
-    private final static String NAMESPACE = "com.youngsuk.bookstore.repository.UserRepository.";
-
     @Autowired
     private SqlSession sqlSession;
 
     public int insertUserForRegister(User user){
-        return sqlSession.insert(NAMESPACE + "insertUserForRegister", user);
+        return sqlSession.insert(UserRepositoryNameSpace + "insertUserForRegister", user);
     }
 
     public String selectUserForConfirmPassword(User user){
-        return sqlSession.selectOne(NAMESPACE + "selectUserData", user.getUserId());
+        return sqlSession.selectOne(UserRepositoryNameSpace + "selectUserData", user.getUserId());
     }
 }
