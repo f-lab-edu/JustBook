@@ -41,7 +41,7 @@ public class UserController {
         boolean isloginSuccess;
         String LoginMessage;
 
-        if(userInformationService.isUserPasswordCollect(user)) {
+        if(userInformationService.isUserPasswordCorrect(user)) {
             setUserSession(user, request);
             isloginSuccess = true;
             LoginMessage = LoginResponseUtils.makeLoginResponseSuccessMessage(isloginSuccess);

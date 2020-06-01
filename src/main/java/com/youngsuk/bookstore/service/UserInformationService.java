@@ -23,7 +23,7 @@ public class UserInformationService {
         userRepository.insertUserForRegister(user);
     }
 
-    public boolean isUserPasswordCollect(User user) {
+    public boolean isUserPasswordCorrect(User user) {
         String password = userRepository.selectUserForConfirmPassword(user);
         return BCrypt.checkpw(user.getUserPassword(), password);
     }
