@@ -9,12 +9,12 @@ public class Book {
     String id;
     String bookName;
     String bookWriter;
+    String bookCategoryName;
     String bookCost;
     String bookPublishDate;
     String bookIntroduce;
     String bookAuthorIntroduce;
     String bookIndexDescription;
-    String bookCategoryName;
     String bookBuyNumber;
     String bookLikeNumber;
 }
