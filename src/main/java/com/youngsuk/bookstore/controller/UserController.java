@@ -1,7 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.dto.User;
-import com.youngsuk.bookstore.common.LoginResponseUtils;
+import com.youngsuk.bookstore.common.utils.LoginResponseUtils;
 import com.youngsuk.bookstore.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

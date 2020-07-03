@@ -1,8 +1,8 @@
-package com.youngsuk.bookstore.common;
+package com.youngsuk.bookstore.common.utils;
 
 import com.youngsuk.bookstore.dto.User;
 
-import static com.youngsuk.bookstore.common.ResponseMessageConstants.*;
+import static com.youngsuk.bookstore.common.constants.ResponseMessageConstants.*;
 
 //사용자에게 로그인에 관련한 HTTP Response를 json으로 전달하는 내용을 변경하는 유틸성 클래스 입니다.
 public class LoginResponseUtils {

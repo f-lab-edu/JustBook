@@ -1,4 +1,4 @@
-package com.youngsuk.bookstore.common;
+package com.youngsuk.bookstore.common.constants;
 
 public class MyBatisNameSpaceConstants {
 
