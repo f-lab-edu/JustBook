@@ -30,14 +30,14 @@ public class UserController {
      * 하지만 코드를 짧게 줄이기 위해서 @PostMapping 이라는 어노테이션에 주소값만 추가해주면 post 방식으로 값을 받을 수 있다.
      */
     @PostMapping(path = "/users")
-    public ResponseEntity userAdd(User user) {
+    public ResponseEntity<User> userAdd(User user) {
         user = userInformationService.makeUserPasswordEncrypt(user);
         user = LoginResponseUtils.makeUserAddResponseInformation(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping(path = "/users/login")
-    public ResponseEntity userCheckPasswordGiveSession(User user, HttpServletRequest request) {
+    public ResponseEntity<User> userCheckPasswordGiveSession(User user, HttpServletRequest request) {
         boolean isloginSuccess;
         String LoginMessage;
 
