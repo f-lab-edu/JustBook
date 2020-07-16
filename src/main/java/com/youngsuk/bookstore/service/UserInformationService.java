@@ -9,24 +9,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInformationService {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    public User makeUserPasswordEncrypt(User user) {
-        String hashedPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt());
-        user.setUserPassword(hashedPassword);
-        insertUserData(user);
-        return user;
-    }
+  public User makeUserPasswordEncrypt(User user) {
+    String hashedPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt());
+    user.setUserPassword(hashedPassword);
+    insertUserData(user);
 
-    public void insertUserData(User user) {
-        userRepository.insertUserForRegister(user);
-    }
+    return user;
+  }
 
-    public boolean isUserPasswordCorrect(User user) {
-        String password = userRepository.selectUserForConfirmPassword(user);
-        return BCrypt.checkpw(user.getUserPassword(), password);
-    }
+  public void insertUserData(User user) {
+    userRepository.insertUserForRegister(user);
+  }
+
+  public boolean isUserPasswordCorrect(User user) {
+    String password = userRepository.selectUserForConfirmPassword(user);
+
+    return BCrypt.checkpw(user.getUserPassword(), password);
+  }
 
 
 }

@@ -13,12 +13,12 @@ import static com.youngsuk.bookstore.common.constants.MyBatisNameSpaceConstants.
 @Repository
 public class BookRepository {
 
-    @Autowired
-    private SqlSession sqlSession;
+  @Autowired
+  private SqlSession sqlSession;
 
-    public List<Book> selectBookByCategory(String categoryName, int offsetForPaging){
-        return sqlSession.selectList(BookRepositoryNameSpace + "selectBookByCategory",
-                etc.makeParamToHashmap(categoryName,offsetForPaging));
+  public List<Book> selectBookByCategory(String categoryName, int offsetForPaging) {
+    return sqlSession.selectList(BookRepositoryNameSpace + "selectBookByCategory",
+                etc.makeParamToHashmap(categoryName, offsetForPaging));
     }
 
 
