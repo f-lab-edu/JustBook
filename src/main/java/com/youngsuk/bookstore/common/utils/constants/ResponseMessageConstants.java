@@ -1,4 +1,4 @@
-package com.youngsuk.bookstore.common.constants;
+package com.youngsuk.bookstore.common.utils.constants;
 
 //사용자에게 Response 데이터를 전달할때 사용되는 메시지 데이터가 담겨있는 클래스 입니다.
 public class ResponseMessageConstants {

@@ -16,13 +16,41 @@
         <result column="book_like_count" property="bookLikeNumber" />
     </resultMap>
 
-    <select id="selectBookByCategory" parameterType="map" resultMap="DBNameMappingBookDTO">
-        select book.id, book.book_name, book.book_category, author.author_name, book.book_publish_date,
-            book.book_introduce, author.author_introduce, book.book_index_text
-            , book.book_cost, book.book_like_count, book.book_buy_count
-        from book left join author on book.id = author.id
-        where book_category = (#{bookCategoryName})
-        order by id DESC LIMIT 10 OFFSET #{offset}
+    <select id="selectBookByCategory" parameterType="com.youngsuk.bookstore.dto.Book" resultMap="DBNameMappingBookDTO">
+
+        SELECT
+        book.id, book.book_name, book.book_category,
+        author.author_name, book.book_publish_date,
+        book.book_introduce, author.author_introduce,
+        book.book_index_text , book.book_cost, book.book_like_count, book.book_buy_count
+
+        FROM
+        book
+
+        LEFT JOIN
+        author
+        ON
+        book.id = author.id
+
+        WHERE
+        book.id NOT IN(#{lastId})
+
+
+        <if test='sortType.equals(Newest)'>
+            AND #{pagingCursor} >= book.book_publish_date AND book_category = #{bookCategoryName}
+            ORDER BY
+            book.book_publish_date
+        </if>
+
+        <if test='sortType.equals(Likes)'>
+            AND #{pagingCursor} >= book.book_like_count AND book_category = #{bookCategoryName}
+            ORDER BY
+            book.book_like_count
+        </if>
+
+        DESC LIMIT #{onePageLimit};
+
     </select>
+
 </mapper>
 
