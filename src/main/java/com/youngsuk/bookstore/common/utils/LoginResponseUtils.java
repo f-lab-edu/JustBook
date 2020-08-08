@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.common.utils;
 
-import com.youngsuk.bookstore.dto.User;
+import com.youngsuk.bookstore.dto.UserDTO;
 
 import static com.youngsuk.bookstore.common.utils.constants.ResponseMessageConstants.*;
 
@@ -9,31 +9,20 @@ public class LoginResponseUtils {
 
   private LoginResponseUtils() {}
 
-  //사용자들이 로그인을 할때 객체 생성 하는 횟수가 많아지게 하는것보다
-  //static을 통해서 객체 생성 횟수를 줄이는 방법이 효율적이라 생각해서 static으로 만듬
-  public static User makeUserAddResponseInformation(User user) {
-    user.setUserPassword("*********");
-    user.setUserMessage(userAddSuccessMessage);
+  /* 사용자들이 로그인을 할때 객체 생성 하는 횟수가 많아지게 하는것보다
+  static을 통해서 객체 생성 횟수를 줄이는 방법이 효율적이라 생각해서 static을 사용하였습니다*/
 
-    return user;
+  public static UserDTO maskingUserPassword(UserDTO userDTO) {
+    userDTO.setUserPassword(userPasswordMask);
+    userDTO.setUserMessage(userAddSuccessMessage);
+
+    return userDTO;
   }
 
-  public static String makeLoginResponseSuccessMessage(boolean isLoginSuccess) {
-    String loginMessage;
+  public static UserDTO makeLoginResponseUserInformation(String loginMessage, UserDTO userDTO) {
+    userDTO.setUserPassword(userPasswordMask);
+    userDTO.setUserMessage(loginMessage);
 
-    if (isLoginSuccess) {
-      loginMessage = loginSuccessMessage;
-    } else {
-      loginMessage = loginFailureMessage;
-    }
-
-    return loginMessage;
-  }
-
-  public static User makeLoginResponseUserInformation(String loginMessage, User user) {
-    user.setUserPassword("*********");
-    user.setUserMessage(loginMessage);
-
-    return user;
+    return userDTO;
   }
 }

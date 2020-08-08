@@ -2,54 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.youngsuk.bookstore.repository.BookRepository">
-    <resultMap id="DBNameMappingBookDTO" type="com.youngsuk.bookstore.dto.Book">
-        <result column="id" property="id" />
+    <resultMap id="DBNameMappingBookDTO" type="com.youngsuk.bookstore.dto.BookDTO">
+        <result column="id" property="bookId" />
         <result column="book_name" property="bookName" />
-        <result column="author_name" property="bookWriter" />
-        <result column="book_cost" property="bookCost" />
-        <result column="book_category" property="bookCategoryName" />
-        <result column="book_publish_date" property="bookPublishDate" />
+        <result column="book_category" property="bookCategory" />
         <result column="book_introduce" property="bookIntroduce" />
         <result column="author_introduce" property="bookAuthorIntroduce" />
-        <result column="book_index_text" property="bookIndexDescription" />
-        <result column="book_buy_count" property="bookBuyNumber" />
-        <result column="book_like_count" property="bookLikeNumber" />
+        <result column="book_index_text" property="bookIndexText" />
+        <result column="author_name" property="bookAuthorName" />
+        <result column="book_publish_date" property="bookPublishDate" />
+        <result column="book_cost" property="bookCost" />
+        <result column="book_like_count" property="bookLikeCount" />
     </resultMap>
 
-    <select id="selectBookByCategory" parameterType="com.youngsuk.bookstore.dto.Book" resultMap="DBNameMappingBookDTO">
-
+    <select id="selectBookByCategory" parameterType="com.youngsuk.bookstore.dto.BookDTO" resultMap="DBNameMappingBookDTO">
         SELECT
-        book.id, book.book_name, book.book_category,
-        author.author_name, book.book_publish_date,
-        book.book_introduce, author.author_introduce,
-        book.book_index_text , book.book_cost, book.book_like_count, book.book_buy_count
-
+            book.book_name, book.book_category,
+            author.author_name, book.book_publish_date,
+            book.book_cost, book.book_like_count
         FROM
-        book
-
+            book
         LEFT JOIN
-        author
+            author
         ON
-        book.id = author.id
-
+            book.id = author.id
         WHERE
-        book.id NOT IN(#{lastId})
+            book.id NOT IN(#{pagingDTO.lastId})
+        AND
+        book_category = #{bookCategory}
 
-
-        <if test='sortType.equals(Newest)'>
-            AND #{pagingCursor} >= book.book_publish_date AND book_category = #{bookCategoryName}
+        <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
+                @Newest">
+            AND
+                #{pagingDTO.pagingCursor} >= book.book_publish_date
             ORDER BY
-            book.book_publish_date
+                book.book_publish_date
+        </if>
+        <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
+                @Likes">
+            AND
+                #{pagingDTO.pagingCursor} >= book.book_like_count
+            ORDER BY
+                book.book_like_count
         </if>
 
-        <if test='sortType.equals(Likes)'>
-            AND #{pagingCursor} >= book.book_like_count AND book_category = #{bookCategoryName}
-            ORDER BY
-            book.book_like_count
-        </if>
-
-        DESC LIMIT #{onePageLimit};
-
+        DESC LIMIT
+            #{pagingDTO.onePageLimit};
     </select>
 
 </mapper>
