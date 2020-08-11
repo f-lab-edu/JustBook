@@ -17,7 +17,7 @@ Use SpringBoot, Mybatis, Redis, Mysql
 - 장바구니
 - 상품 결제
 - 상품 검색
-- 
+
 ## UI
 
 <div style= "border: 1px solid black; border-radius: 10px;" >
