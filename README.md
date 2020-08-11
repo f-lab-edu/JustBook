@@ -1,2 +1,2 @@
 #  JustBook
-all information in wiki
+All information in wiki
