@@ -1,4 +1,4 @@
-#  소개
+#  JustBook
 온라인 서점 어플리케이션입니다. SpringBoot, Mybatis, Redis, Mysql을 활용 했습니다. 프론트는 KAKAO OVEN으로 제작하였습니다.
 
 ## 기능
@@ -10,7 +10,7 @@
 - 장바구니
 - 상품 결제
 - 상품 검색
-- 
+
 ## 화면
 
 <div style= "border: 1px solid black; border-radius: 10px;" >
