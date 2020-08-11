@@ -1,23 +1,6 @@
 #  JustBook
 Use SpringBoot, Mybatis, Redis, Mysql
 
-## Introduction
-책 판매 어플리케이션입니다. Front UI는 KAKO OVEN으로 자체 제작 하였습니다.
-
-평소 저는 국내 책 판매 사이트를 이용하면서 책 이외에 마스크, 헤어드라이기 같은 상품들을 판매하는것을 보았습니다.
-
-책 이외에 다른 상품들을 판매하는 문제 때문에 제가 원하는 책을 고르는데  느꼈고 단순 책만 판매하는 어플리케이션이 있으면 좋겠다는 생각이 들어 개발하였습니다.
-
-## Feature
-- 회원가입
-- 로그인
-- 회원 정보 수정
-- 회원 탈퇴
-- 카테고리별 책 구매순, 좋아요 순 조회
-- 장바구니
-- 상품 결제
-- 상품 검색
-
 ## UI
 
 <div style= "border: 1px solid black; border-radius: 10px;" >
