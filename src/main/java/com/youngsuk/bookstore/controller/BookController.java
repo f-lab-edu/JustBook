@@ -1,6 +1,5 @@
 package com.youngsuk.bookstore.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
 import com.youngsuk.bookstore.dto.BookDTO;
 import com.youngsuk.bookstore.dto.PagingDTO;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/books/categories/", produces = "application/json; charset=UTF-8")
 public class BookController {
@@ -22,12 +23,15 @@ public class BookController {
   private BookService bookService;
 
   @GetMapping(value = "{categoryName}")
-  public ResponseEntity<String> giveBookByCategory(BookDTO bookDTO,
+  public ResponseEntity<List<BookDTO>> giveBookByCategory(BookDTO bookDTO,
                                                   @PathVariable String categoryName,
-                                                  @RequestParam SortTypeEnum sortType, PagingDTO pagingDTO) throws JsonProcessingException {
+                                                  @RequestParam SortTypeEnum sortType,
+                                                          PagingDTO pagingDTO) {
 
-    String bookJson = bookService.getBookByCategory(bookDTO, categoryName, sortType, pagingDTO);
-    return ResponseEntity.status(HttpStatus.OK).body(bookJson);
+    List<BookDTO> bookList = bookService
+        .getBookByCategory(bookDTO, categoryName, sortType, pagingDTO);
+
+    return ResponseEntity.status(HttpStatus.OK).body(bookList);
   }
 
 }

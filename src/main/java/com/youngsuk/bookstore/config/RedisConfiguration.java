@@ -9,38 +9,14 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-
-
-
-/*
-[세션 공부]
-세션이란 일반적으로 로그인을 할때 사용되는 기술이다.
-쿠키와 세션이 많이 비교가 되는데, 쿠키는 클라이언트에 저장되고 세션은 서버에 저장된다.
-웹 컨테이너는 웹브라우저 하나마다 세션을 생성한다.
-생성된 세션은 웹브라우저의 쿠키에 저장된다.
-웹서버는 웹브라우저의 쿠키를 통해서 사용자의 로그인을 유지 할 수 있다.
-세션에는 유효 기간 설정을 해줘야 한다. 왜냐면 사용자가 많이 들어와서
-세션 객체가 계속 생성된다면 메모리가 부족해질 수 있기 때문이다
-*/
-
-/*
-[서블릿 필터 공부 내용]
-사용자에게 들어온 요청이 서블릿으로 바로 가게 하지 않고 필터를 통해서 갈 수 있도록 한다.
-필터는 사용자에게 전달받은 쿠키에 세션이 있는지 확인하는 방법으로 사용할수있다.
-*/
-
 /*
 [@EnableRedisHttpSession 공부 내용]
 이 어노테이션은 springSessionRepositoryFilter 이라는 빈을 생성시킨다.
     이 필터는 HttpSession의 구현체를 Redis로 변경한다.
 */
 
-/*
-로그인한 사용자가 결제 페이지에 머무르는 시간이 가장 많을것이라고 생각했다.
-사용자가 이사를해서 주소를 새로 입력하거나 핸드폰을 바꿔서 번호를 바꿀 수도 있기 때문이다.
-결제를 할때도 시간이 걸릴것이라고 생각했다. 이런 시간들을 고려했을때 10분이면 적절할것이라고 생각했다.
- */
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60 * 10)
+
+@EnableRedisHttpSession
 @Configuration
 public class RedisConfiguration {
 
@@ -73,8 +49,7 @@ public class RedisConfiguration {
   public RedisConnectionFactory lettuceConnectionFactory() {
     RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHostName, redisPort);
     redisStandaloneConfiguration.setPassword(RedisPassword.of(redisPassword));
-    LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
-    return lettuceConnectionFactory;
+    return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
 
 

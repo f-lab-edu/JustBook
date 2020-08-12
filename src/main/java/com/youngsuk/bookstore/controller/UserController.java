@@ -1,20 +1,17 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.common.utils.LoginResponseUtils;
 import com.youngsuk.bookstore.dto.UserDTO;
 import com.youngsuk.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static com.youngsuk.bookstore.common.utils.constants.ResponseMessageConstants.loginFailureMessage;
-import static com.youngsuk.bookstore.common.utils.constants.ResponseMessageConstants.loginSuccessMessage;
-import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.levelOne;
+import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.LEVEL_ONE_SESSION_KEY;
 
 /*
 [@RestController 공부내용]
@@ -24,6 +21,7 @@ import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.
 */
 
 @RestController
+@RequestMapping(path = "/users")
 public class UserController {
 
   @Autowired
@@ -36,25 +34,24 @@ public class UserController {
   주소값만 추가해주면 post 방식으로 값을 받을 수 있도록 만들어졌다.
   */
 
-  @PostMapping(path = "/users")
-  public ResponseEntity<UserDTO> userRegister(UserDTO userDTO) {
+  @PostMapping
+  public ResponseEntity<UserDTO> register(UserDTO userDTO) {
     userService.insertUserData(userDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
   }
 
-  @PostMapping(path = "/users/login")
-  public ResponseEntity<UserDTO> login(UserDTO userDTO, HttpServletRequest request) {
+  @PostMapping(path = "/login")
+  public ResponseEntity<UserDTO> login(UserDTO userDTO,
+                                       HttpSession session) {
+
     boolean loginSuccess = userService.isUserPasswordCorrect(userDTO);
 
     if (loginSuccess) {
-      HttpSession session = request.getSession();
-      session.setAttribute(levelOne, userDTO.getUserId());
-      userDTO = LoginResponseUtils.makeLoginResponseUserInformation(loginSuccessMessage, userDTO);
+      session.setAttribute(LEVEL_ONE_SESSION_KEY, userDTO.getUserId());
 
       return ResponseEntity.status(HttpStatus.OK).body(userDTO);
-    } else {
-      userDTO = LoginResponseUtils.makeLoginResponseUserInformation(loginFailureMessage, userDTO);
 
+    } else {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDTO);
     }
   }
