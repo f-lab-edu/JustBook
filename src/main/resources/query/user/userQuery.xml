@@ -4,12 +4,12 @@
 <mapper namespace="com.youngsuk.bookstore.repository.UserRepository">
 
     <insert id="insertUserData">
-        INSERT INTO userDTO (user_id, user_password, user_name, user_email)
+        INSERT INTO user (user_id, user_password, user_name, user_email)
         VALUES (#{userId},#{userPassword},#{userName},#{userEmail})
     </insert>
 
     <select id="selectPassword" resultType="string">
-        SELECT user_password FROM userDTO
+        SELECT user_password FROM user
         WHERE user_id = (#{userId})
     </select>
 </mapper>

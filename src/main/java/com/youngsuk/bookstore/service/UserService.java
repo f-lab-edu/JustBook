@@ -6,8 +6,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.youngsuk.bookstore.common.utils.constants.ResponseMessageConstants.userPasswordMask;
-
 @Service
 public class UserService {
 
@@ -18,12 +16,10 @@ public class UserService {
     String hashedPassword = BCrypt.hashpw(userDTO.getUserPassword(), BCrypt.gensalt());
     userDTO.setUserPassword(hashedPassword);
     userRepository.insertUserData(userDTO);
-    userDTO.setUserPassword(userPasswordMask);
   }
 
   public boolean isUserPasswordCorrect(UserDTO userDTO) {
     String password = userRepository.selectUserForConfirmPassword(userDTO);
-
     return BCrypt.checkpw(userDTO.getUserPassword(), password);
   }
 

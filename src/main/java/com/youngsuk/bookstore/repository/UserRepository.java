@@ -38,7 +38,7 @@ public class UserRepository {
   private SqlSession sqlSession;
 
   public void insertUserData(UserDTO userDTO) {
-    sqlSession.insert(UserRepositoryNameSpace + "insertUserProfile", userDTO);
+    sqlSession.insert(UserRepositoryNameSpace + "insertUserData", userDTO);
   }
 
   public String selectUserForConfirmPassword(UserDTO userDTO) {

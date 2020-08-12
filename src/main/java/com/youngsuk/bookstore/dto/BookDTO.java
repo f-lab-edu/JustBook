@@ -1,14 +1,12 @@
 package com.youngsuk.bookstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookDTO {
   @JsonIgnore
   private String bookId;
