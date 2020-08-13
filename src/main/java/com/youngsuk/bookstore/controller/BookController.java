@@ -1,8 +1,8 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
-import com.youngsuk.bookstore.dto.BookDTO;
-import com.youngsuk.bookstore.dto.PagingDTO;
+import com.youngsuk.bookstore.dto.BookDto;
+import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +23,13 @@ public class BookController {
   private BookService bookService;
 
   @GetMapping(value = "{categoryName}")
-  public ResponseEntity<List<BookDTO>> giveBookByCategory(BookDTO bookDTO,
-                                                  @PathVariable String categoryName,
-                                                  @RequestParam SortTypeEnum sortType,
-                                                          PagingDTO pagingDTO) {
+  public ResponseEntity<List<BookDto>> giveBookByCategory(BookDto bookDto,
+                                                          @PathVariable String categoryName,
+                                                          @RequestParam SortTypeEnum sortType,
+                                                          PagingDto pagingDto) {
 
-    List<BookDTO> bookList = bookService
-        .getBookByCategory(bookDTO, categoryName, sortType, pagingDTO);
+    List<BookDto> bookList = bookService
+        .getBookByCategory(bookDto, categoryName, sortType, pagingDto);
 
     return ResponseEntity.status(HttpStatus.OK).body(bookList);
   }

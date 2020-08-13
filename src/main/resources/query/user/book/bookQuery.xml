@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.youngsuk.bookstore.repository.BookRepository">
-    <resultMap id="DBNameMappingBookDTO" type="com.youngsuk.bookstore.dto.BookDTO">
+    <resultMap id="DBNameMappingBookDTO" type="com.youngsuk.bookstore.dto.BookDto">
         <result column="id" property="bookId" />
         <result column="book_name" property="bookName" />
         <result column="book_category" property="bookCategory" />
@@ -15,7 +15,7 @@
         <result column="book_like_count" property="bookLikeCount" />
     </resultMap>
 
-    <select id="selectBookByCategory" parameterType="com.youngsuk.bookstore.dto.BookDTO" resultMap="DBNameMappingBookDTO">
+    <select id="selectBookByCategory" parameterType="com.youngsuk.bookstore.dto.BookDto" resultMap="DBNameMappingBookDTO">
         SELECT
             book.book_name, book.book_category,
             author.author_name, book.book_publish_date,
@@ -27,27 +27,27 @@
         ON
             book.id = author.id
         WHERE
-            book.id NOT IN(#{pagingDTO.lastId})
+            book.id NOT IN(#{pagingDto.lastId})
         AND
         book_category = #{bookCategory}
 
         <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
                 @Newest">
             AND
-                #{pagingDTO.pagingCursor} >= book.book_publish_date
+                #{pagingDto.pagingCursor} >= book.book_publish_date
             ORDER BY
                 book.book_publish_date
         </if>
         <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
                 @Likes">
             AND
-                #{pagingDTO.pagingCursor} >= book.book_like_count
+                #{pagingDto.pagingCursor} >= book.book_like_count
             ORDER BY
                 book.book_like_count
         </if>
 
         DESC LIMIT
-            #{pagingDTO.onePageLimit};
+            #{pagingDto.onePageLimit};
     </select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.repository;
 
-import com.youngsuk.bookstore.dto.UserDTO;
+import com.youngsuk.bookstore.dto.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,11 +37,11 @@ public class UserRepository {
   @Autowired
   private SqlSession sqlSession;
 
-  public void insertUserData(UserDTO userDTO) {
-    sqlSession.insert(UserRepositoryNameSpace + "insertUserData", userDTO);
+  public void insertUserData(UserDto userDto) {
+    sqlSession.insert(UserRepositoryNameSpace + "insertUserData", userDto);
   }
 
-  public String selectUserForConfirmPassword(UserDTO userDTO) {
-    return sqlSession.selectOne(UserRepositoryNameSpace + "selectPassword", userDTO.getUserId());
+  public String selectUserForConfirmPassword(UserDto userDto) {
+    return sqlSession.selectOne(UserRepositoryNameSpace + "selectPassword", userDto.getUserId());
   }
 }

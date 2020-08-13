@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.repository;
 
-import com.youngsuk.bookstore.dto.BookDTO;
+import com.youngsuk.bookstore.dto.BookDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,9 +14,9 @@ public class BookRepository {
   @Autowired
   private SqlSession sqlSession;
 
-  public List<BookDTO> selectBookByCategory(BookDTO bookDTO) {
+  public List<BookDto> selectBookByCategory(BookDto bookDto) {
     return sqlSession.selectList(BookRepositoryNameSpace
-        + "selectBookByCategory", bookDTO);
+        + "selectBookByCategory", bookDto);
   }
 
 }

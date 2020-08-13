@@ -1,14 +1,15 @@
 package com.youngsuk.bookstore.service;
 
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
-import com.youngsuk.bookstore.dto.BookDTO;
-import com.youngsuk.bookstore.dto.PagingDTO;
+import com.youngsuk.bookstore.dto.BookDto;
+import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+
 
 @Service
 public class BookService {
@@ -25,13 +26,16 @@ public class BookService {
   */
 
   //TODO. key 추가로 만들것
-  @Cacheable(cacheNames = "BookByCategoryCache", key = "{#categoryName}")
-  public List<BookDTO> getBookByCategory(BookDTO bookDTO, String categoryName,
-                                         SortTypeEnum sortTypeEnum, PagingDTO pagingDTO) {
-    bookDTO.setBookCategory(categoryName);
-    bookDTO.setPagingDTO(pagingDTO);
-    bookDTO.setSortTypeEnum(sortTypeEnum);
+//  @Cacheable(cacheNames = "BookByCategoryCache", key = "{#categoryName}")
+  public List<BookDto> getBookByCategory(BookDto bookDto, String categoryName,
+                                         SortTypeEnum sortTypeEnum, PagingDto pagingDto) {
 
-    return bookRepository.selectBookByCategory(bookDTO);
+    bookDto.setBookCategory(categoryName);
+    bookDto.setPagingDto(pagingDto);
+    bookDto.setSortTypeEnum(sortTypeEnum);
+
+
+
+    return bookRepository.selectBookByCategory(bookDto);
   }
 }

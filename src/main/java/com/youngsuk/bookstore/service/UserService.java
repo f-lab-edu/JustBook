@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.service;
 
-import com.youngsuk.bookstore.dto.UserDTO;
+import com.youngsuk.bookstore.dto.UserDto;
 import com.youngsuk.bookstore.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public void insertUserData(UserDTO userDTO) {
-    String hashedPassword = BCrypt.hashpw(userDTO.getUserPassword(), BCrypt.gensalt());
-    userDTO.setUserPassword(hashedPassword);
-    userRepository.insertUserData(userDTO);
+  public void insertUserData(UserDto userDto) {
+    String hashedPassword = BCrypt.hashpw(userDto.getUserPassword(), BCrypt.gensalt());
+    userDto.setUserPassword(hashedPassword);
+    userRepository.insertUserData(userDto);
   }
 
-  public boolean isUserPasswordCorrect(UserDTO userDTO) {
-    String password = userRepository.selectUserForConfirmPassword(userDTO);
-    return BCrypt.checkpw(userDTO.getUserPassword(), password);
+  public boolean isUserPasswordCorrect(UserDto userDto) {
+    String password = userRepository.selectUserForConfirmPassword(userDto);
+    return BCrypt.checkpw(userDto.getUserPassword(), password);
   }
 
 

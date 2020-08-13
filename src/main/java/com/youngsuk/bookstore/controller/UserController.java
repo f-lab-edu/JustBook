@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.dto.UserDTO;
+import com.youngsuk.bookstore.dto.UserDto;
 import com.youngsuk.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
-import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.LEVEL_ONE_SESSION_KEY;
+import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.USER_SESSION_KEY;
 
 /*
 [@RestController 공부내용]
@@ -21,7 +21,7 @@ import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.
 */
 
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping("/users")
 public class UserController {
 
   @Autowired
@@ -35,24 +35,24 @@ public class UserController {
   */
 
   @PostMapping
-  public ResponseEntity<UserDTO> register(UserDTO userDTO) {
-    userService.insertUserData(userDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+  public ResponseEntity<UserDto> register(UserDto userDto) {
+    userService.insertUserData(userDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
   }
 
-  @PostMapping(path = "/login")
-  public ResponseEntity<UserDTO> login(UserDTO userDTO,
+  @PostMapping("/login")
+  public ResponseEntity<UserDto> login(UserDto userDto,
                                        HttpSession session) {
 
-    boolean loginSuccess = userService.isUserPasswordCorrect(userDTO);
+    boolean loginSuccess = userService.isUserPasswordCorrect(userDto);
 
     if (loginSuccess) {
-      session.setAttribute(LEVEL_ONE_SESSION_KEY, userDTO.getUserId());
+      session.setAttribute(USER_SESSION_KEY, userDto.getUserId());
 
-      return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+      return ResponseEntity.status(HttpStatus.OK).body(userDto);
 
     } else {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDTO);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDto);
     }
   }
 
