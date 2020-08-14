@@ -5,6 +5,7 @@ import com.youngsuk.bookstore.dto.BookDto;
 import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,16 +26,14 @@ public class BookService {
   3. return 값을 key값에 대응하는 value에 저장한다.
   */
 
-  //TODO. key 추가로 만들것
-//  @Cacheable(cacheNames = "BookByCategoryCache", key = "{#categoryName}")
-  public List<BookDto> getBookByCategory(BookDto bookDto, String categoryName,
-                                         SortTypeEnum sortTypeEnum, PagingDto pagingDto) {
+  @Cacheable(cacheNames = "BookByCategoryCache", key = "{#categoryName}")
+  public List<BookDto> getBookByCategory(BookDto bookDto, PagingDto pagingDto,
+                                         SortTypeEnum sortTypeEnum,
+                                         String categoryName) {
 
     bookDto.setBookCategory(categoryName);
     bookDto.setPagingDto(pagingDto);
     bookDto.setSortTypeEnum(sortTypeEnum);
-
-
 
     return bookRepository.selectBookByCategory(bookDto);
   }
