@@ -1,6 +1,6 @@
 package com.youngsuk.bookstore.common.utils.constants;
 
-public class MyBatisNameSpaceConstants {
+public final class MyBatisNameSpaceConstants {
 
   private MyBatisNameSpaceConstants() {}
 

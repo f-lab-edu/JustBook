@@ -5,7 +5,7 @@ import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SortTypeUtils {
+public final class SortTypeUtils {
 
   private SortTypeUtils(){}
 

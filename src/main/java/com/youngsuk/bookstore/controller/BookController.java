@@ -29,7 +29,7 @@ public class BookController {
                                                           PagingDto pagingDto) {
 
     List<BookDto> bookList = bookService
-        .getBookByCategory(bookDto, categoryName, sortType, pagingDto);
+        .getBookByCategory(bookDto, pagingDto, sortType, categoryName);
 
     return ResponseEntity.status(HttpStatus.OK).body(bookList);
   }
