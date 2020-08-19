@@ -3,12 +3,12 @@
 
 <mapper namespace="com.youngsuk.bookstore.repository.UserRepository">
 
-    <insert id="insertUserForRegister">
+    <insert id="insertUserData">
         INSERT INTO user (user_id, user_password, user_name, user_email)
         VALUES (#{userId},#{userPassword},#{userName},#{userEmail})
     </insert>
 
-    <select id="selectUserData" resultType="string">
+    <select id="selectPassword" resultType="string">
         SELECT user_password FROM user
         WHERE user_id = (#{userId})
     </select>

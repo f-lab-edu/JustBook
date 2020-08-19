@@ -1,27 +1,37 @@
 package com.youngsuk.bookstore.controller;
 
-import com.youngsuk.bookstore.dto.Book;
+import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
+import com.youngsuk.bookstore.dto.BookDto;
+import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping(value = "/books/categories/", produces = "application/json; charset=UTF-8")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+  @Autowired
+  private BookService bookService;
 
-    @GetMapping("/books/category/{categoryName}")
-    public ResponseEntity<List<Book>> getBookByCategory(@PathVariable String categoryName, Book book) {
-        List<Book> bookList = bookService.selectBookByCategory(book, categoryName);
+  @GetMapping(value = "{categoryName}")
+  public ResponseEntity<List<BookDto>> giveBookByCategory(BookDto bookDto,
+                                                          @PathVariable String categoryName,
+                                                          @RequestParam SortTypeEnum sortType,
+                                                          PagingDto pagingDto) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(bookList);
-    }
+    List<BookDto> bookList = bookService
+        .getBookByCategory(bookDto, pagingDto, sortType, categoryName);
+
+    return ResponseEntity.status(HttpStatus.OK).body(bookList);
+  }
 
 }
