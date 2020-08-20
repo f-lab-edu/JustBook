@@ -4,6 +4,7 @@ import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
 import com.youngsuk.bookstore.dto.BookDto;
 import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.repository.BookRepository;
+import com.youngsuk.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class BookServiceImple {
+public class BookServiceImple implements BookService {
 
   @Autowired
   private BookRepository bookRepository;
@@ -35,6 +36,6 @@ public class BookServiceImple {
     bookDto.setPagingDto(pagingDto);
     bookDto.setSortTypeEnum(sortTypeEnum);
 
-    return bookRepository.selectBookByCategory(bookDto);
+    return bookRepository.getBookByCategory(bookDto);
   }
 }
