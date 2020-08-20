@@ -8,7 +8,7 @@
         VALUES (#{userId},#{userPassword},#{userName},#{userEmail})
     </insert>
 
-    <select id="selectPassword" resultType="string">
+    <select id="selectUserPassword" resultType="string">
         SELECT user_password FROM user
         WHERE user_id = (#{userId})
     </select>
