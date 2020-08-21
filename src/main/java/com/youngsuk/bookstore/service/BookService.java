@@ -8,7 +8,5 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface BookService {
-  public List<BookDto> getBookByCategory(BookDto bookDto, PagingDto pagingDto,
-                                         SortTypeEnum sortTypeEnum,
-                                         String categoryName);
+  public List<BookDto> getBookByCategory(BookDto bookDto);
 }

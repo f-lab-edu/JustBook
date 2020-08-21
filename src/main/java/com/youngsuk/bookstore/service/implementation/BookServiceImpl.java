@@ -28,14 +28,7 @@ public class BookServiceImpl implements BookService {
   */
 
   @Cacheable(cacheNames = "BookByCategoryCache", key = "{#categoryName}")
-  public List<BookDto> getBookByCategory(BookDto bookDto, PagingDto pagingDto,
-                                         SortTypeEnum sortTypeEnum,
-                                         String categoryName) {
-
-    bookDto.setBookCategory(categoryName);
-    bookDto.setPagingDto(pagingDto);
-    bookDto.setSortTypeEnum(sortTypeEnum);
-
+  public List<BookDto> getBookByCategory(BookDto bookDto) {
     return bookRepository.selectBookByCategory(bookDto);
   }
 }

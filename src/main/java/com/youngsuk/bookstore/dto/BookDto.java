@@ -2,13 +2,13 @@ package com.youngsuk.bookstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 public final class BookDto {
-  @JsonIgnore
-  private String bookId;
   private String bookName;
   private String bookAuthorName;
   private String bookCost;
@@ -18,14 +18,13 @@ public final class BookDto {
   private String bookIndexDescription;
   private String bookLikeCount;
 
-  @Setter
+  @NonNull
+  @JsonIgnore
   private String bookCategory;
-
-  @Setter
+  @NonNull
   @JsonIgnore
   private PagingDto pagingDto;
-
-  @Setter
+  @NonNull
   @JsonIgnore
   private SortTypeEnum sortTypeEnum;
 }
