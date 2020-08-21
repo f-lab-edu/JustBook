@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class BookServiceImple implements BookService {
+public class BookServiceImpl implements BookService {
 
   @Autowired
   private BookRepository bookRepository;
@@ -36,6 +36,6 @@ public class BookServiceImple implements BookService {
     bookDto.setPagingDto(pagingDto);
     bookDto.setSortTypeEnum(sortTypeEnum);
 
-    return bookRepository.getBookByCategory(bookDto);
+    return bookRepository.selectBookByCategory(bookDto);
   }
 }
