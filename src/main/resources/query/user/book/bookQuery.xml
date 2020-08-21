@@ -31,13 +31,15 @@
         AND
         book_category = #{bookCategory}
 
-        <if test="sortTypeEnum == sortTypeEnum.getNewest()">
+        <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
+                @Newest">
             AND
                 #{pagingDto.pagingCursor} >= book.book_publish_date
             ORDER BY
                 book.book_publish_date
         </if>
-        <if test="sortTypeEnum == sortTypeEnum.getLikes()">
+        <if test="sortTypeEnum == @com.youngsuk.bookstore.common.utils.constants.SortTypeEnum
+                @Likes">
             AND
                 #{pagingDto.pagingCursor} >= book.book_like_count
             ORDER BY
