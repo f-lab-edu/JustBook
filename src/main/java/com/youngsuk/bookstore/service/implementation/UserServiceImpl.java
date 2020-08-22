@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void deleteUser(String userId) {
+    userRepository.deleteUserData(userId);
+  }
+
+  @Override
   public boolean isUserPasswordCorrect(UserDto userDto) {
     String password = userRepository.selectUserPassword(userDto.getUserId());
     return BCrypt.checkpw(userDto.getUserPassword(), password);

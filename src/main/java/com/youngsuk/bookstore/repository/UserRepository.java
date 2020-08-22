@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
   String selectUserPassword(String userId);
+  void deleteUserData(String userId);
   void insertUserData(UserDto userDto);
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public interface UserService {
   public boolean isUserPasswordCorrect(UserDto userDto);
   public void insertUserData(UserDto userDto);
+  public void deleteUser(String userId);
 }
