@@ -36,12 +36,8 @@ public class SessionCheckAspect {
     String userId = (String) joinPoint.getArgs()[0];
     String userSession = (String) session.getAttribute(USER_SESSION_KEY);
 
-    if (userSession.equals(userId)){
-        session.invalidate();
-        System.out.println("삭제 완료");
-    } else {
+    if(!userSession.equals(userId)) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not Authorized");
     }
   }
-
 }

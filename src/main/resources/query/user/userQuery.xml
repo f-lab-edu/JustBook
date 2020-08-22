@@ -3,15 +3,23 @@
 
 <mapper namespace="com.youngsuk.bookstore.repository.UserRepository">
 
-    <insert id="insertUserData">
+    <insert id="insertUser">
         INSERT INTO user (userId, userPassword, userName, userEmail)
         VALUES (#{userId},#{userPassword},#{userName},#{userEmail})
     </insert>
 
-    <delete id="deleteUserData">
+    <delete id="deleteUser">
         DELETE FROM user
         WHERE userId = (#{userId})
     </delete>
+
+    <update id="updateUser">
+        UPDATE user
+        SET userName = #{userName},
+            userEmail = #{userEmail},
+            userPassword= #{userPassword}
+        WHERE userId = #{userId}
+    </update>
 
     <select id="selectUserPassword" resultType="string">
         SELECT userPassword FROM user
