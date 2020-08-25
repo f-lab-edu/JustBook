@@ -1,5 +1,6 @@
 package com.youngsuk.bookstore.aspect;
 
+import com.youngsuk.bookstore.exception.SessionNullPointException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -21,7 +22,7 @@ import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.
 
 @Aspect
 @Component
-public class SessionCheckAspect {
+public class LoginCheckAspect {
 
   @Autowired
   private HttpSession session;
@@ -36,9 +37,11 @@ public class SessionCheckAspect {
     String userId = (String) joinPoint.getArgs()[0];
     String userSession = (String) session.getAttribute(USER_SESSION_KEY);
 
+    if (userSession == null) {
+      throw new SessionNullPointException();
+    }
+
     if (userSession.equals(userId)){
-        session.invalidate();
-        System.out.println("삭제 완료");
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not Authorized");
     }

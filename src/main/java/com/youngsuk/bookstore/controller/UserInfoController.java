@@ -37,9 +37,9 @@ public class UserInfoController {
 
   @Authorized
   @DeleteMapping(value = "{userId}")
-  public ResponseEntity<String> delete(@PathVariable String userId) {
+  public HttpStatus delete(@PathVariable String userId) {
     userService.deleteUser(userId);
-    return ResponseEntity.status(HttpStatus.OK).body(userId);
+    return HttpStatus.OK;
   }
 
 }
