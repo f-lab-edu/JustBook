@@ -30,7 +30,7 @@ public class LoginController {
                                        HttpSession session,
                                        HttpServletResponse response) {
 
-    boolean loginSuccess = userService.isUserPasswordCorrect(userDto);
+    boolean loginSuccess = userService.selectUserPassword(userDto);
 
     if (loginSuccess) {
       session.setAttribute(USER_SESSION_KEY, userDto.getUserId());

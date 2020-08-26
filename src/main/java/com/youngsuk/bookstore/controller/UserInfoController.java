@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /*
 [@RestController 공부내용]
 @Controller의 기능에 @ResponseBody 기능이 추가된 것이다.
@@ -30,18 +32,33 @@ public class UserInfoController {
   */
 
   @PostMapping
-  public ResponseEntity<UserDto> add(UserDto userDto) {
-    userService.insertUserData(userDto);
+  public ResponseEntity<UserDto> addUser(UserDto userDto) {
+    userService.insertUser(userDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
   }
 
   @Authorized
   @DeleteMapping(value = "{userId}")
-  public HttpStatus delete(@PathVariable String userId) {
+  public ResponseEntity<String> deleteUser(@PathVariable String userId, HttpSession httpSession) {
     userService.deleteUser(userId);
-    return HttpStatus.OK;
+    httpSession.invalidate();
+    return ResponseEntity.status(HttpStatus.OK).body(userId);
   }
 
-}
+  @Authorized
+  @PatchMapping(value = "{userId}")
+  public ResponseEntity<UserDto> updateUser(@PathVariable String userId, UserDto userDto) {
+    UserDto user = UserDto.builder()
+            .userId(userDto.getUserId())
+            .userName(userDto.getUserName())
+            .userEmail(userDto.getUserEmail())
+            .build();
 
+    userService.updateUser(userDto);
+    return ResponseEntity.status(HttpStatus.OK).body(userDto);
+  }
+
+  
+
+}
 

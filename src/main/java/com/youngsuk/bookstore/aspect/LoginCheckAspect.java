@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.servlet.http.HttpSession;
 
 import static com.youngsuk.bookstore.common.utils.constants.SessionKeyConstants.USER_SESSION_KEY;
@@ -35,8 +34,7 @@ public class LoginCheckAspect {
       throw new LoginRequiredException();
     }
 
-    if (userSession.equals(userId)){
-    } else {
+    if(!userSession.equals(userId)) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not Authorized");
     }
   }
