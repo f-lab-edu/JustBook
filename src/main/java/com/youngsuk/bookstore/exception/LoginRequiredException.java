@@ -5,6 +5,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class LoginRequiredException extends ResponseStatusException {
     public LoginRequiredException() {
-        super(HttpStatus.BAD_REQUEST, "User Session Null Exception");
+        super(HttpStatus.BAD_REQUEST, "Need login");
     }
 }
