@@ -14,14 +14,24 @@ public class UserServiceImpl implements UserService {
   private UserRepository userRepository;
 
   @Override
-  public void insertUserData(UserDto userDto) {
+  public void insertUser(UserDto userDto) {
     String hashedPassword = BCrypt.hashpw(userDto.getUserPassword(), BCrypt.gensalt());
     userDto.setUserPassword(hashedPassword);
-    userRepository.insertUserData(userDto);
+    userRepository.insertUser(userDto);
   }
 
   @Override
-  public boolean isUserPasswordCorrect(UserDto userDto) {
+  public void deleteUser(String userId) {
+    userRepository.deleteUser(userId);
+  }
+
+  @Override
+  public void updateUser(UserDto userDto) {
+    userRepository.updateUser(userDto);
+  }
+
+  @Override
+  public boolean selectUserPassword(UserDto userDto) {
     String password = userRepository.selectUserPassword(userDto.getUserId());
     return BCrypt.checkpw(userDto.getUserPassword(), password);
   }
