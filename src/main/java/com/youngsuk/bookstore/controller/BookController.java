@@ -23,13 +23,14 @@ public class BookController {
   private BookService bookService;
 
   @GetMapping(value = "{categoryName}")
-  public ResponseEntity<List<BookDto>> giveBookByCategory(BookDto bookDto,
-                                                          @PathVariable String categoryName,
+  public ResponseEntity<List<BookDto>> giveBookByCategory(@PathVariable String categoryName,
                                                           @RequestParam SortTypeEnum sortType,
                                                           PagingDto pagingDto) {
 
+    BookDto bookDto = new BookDto(categoryName, pagingDto, sortType);
+
     List<BookDto> bookList = bookService
-        .getBookByCategory(bookDto, pagingDto, sortType, categoryName);
+        .getBookByCategory(bookDto);
 
     return ResponseEntity.status(HttpStatus.OK).body(bookList);
   }
