@@ -1,6 +1,7 @@
 package com.youngsuk.bookstore.controller;
 
 import com.youngsuk.bookstore.common.utils.constants.SortTypeEnum;
+import com.youngsuk.bookstore.dto.BookCategoryDto;
 import com.youngsuk.bookstore.dto.BookDto;
 import com.youngsuk.bookstore.dto.PagingDto;
 import com.youngsuk.bookstore.service.BookService;
@@ -26,21 +27,19 @@ public class BookController {
    * @return 모든 책의 카테고리를 리턴한다 ex) 인문학, 철학 ..
    */
   @GetMapping
-  public List<BookDto> getCategoryList() {
+  public List<BookCategoryDto> getCategoryList() {
     return bookService.cacheBookCategoryList();
   }
 
-  @GetMapping(value = "{categoryName}")
-  public ResponseEntity<List<BookDto>> giveBookByCategory(@PathVariable String categoryName,
-                                                          @RequestParam SortTypeEnum sortType,
-                                                          PagingDto pagingDto) {
-
-    BookDto bookDto = new BookDto(categoryName, pagingDto, sortType);
-
-    List<BookDto> bookList = bookService
-        .getBookByCategory(bookDto);
-
-    return ResponseEntity.status(HttpStatus.OK).body(bookList);
+  @GetMapping
+  public List<BookDto> getBookByCategoryName() {
+    //todo defalut 최신순
   }
 
-}
+  @GetMapping
+  public List<BookDto> getBookBySortType() {
+    //todo
+  }
+
+
+

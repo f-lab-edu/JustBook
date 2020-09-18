@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.youngsuk.bookstore.repository.BookRepository">
-    <select id="findBookByCategoryList" resultType="com.youngsuk.bookstore.dto.BookDto">
+    <select id="findBookByCategoryList" resultType="com.youngsuk.bookstore.dto.BookCategoryDto">
         SELECT
             bookCategoryCode, bookCategoryName
         FROM

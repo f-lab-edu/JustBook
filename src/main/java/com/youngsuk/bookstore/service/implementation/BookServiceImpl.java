@@ -1,5 +1,6 @@
 package com.youngsuk.bookstore.service.implementation;
 
+import com.youngsuk.bookstore.dto.BookCategoryDto;
 import com.youngsuk.bookstore.dto.BookDto;
 import com.youngsuk.bookstore.repository.BookRepository;
 import com.youngsuk.bookstore.service.BookService;
@@ -26,7 +27,7 @@ public class BookServiceImpl implements BookService {
 
   //TODO. 캐시 key 생성
 //  @Cacheable(cacheNames = "bookCategoryList")
-  public List<BookDto> cacheBookCategoryList() {
+  public List<BookCategoryDto> cacheBookCategoryList() {
     return bookRepository.findBookByCategoryList();
   }
 
