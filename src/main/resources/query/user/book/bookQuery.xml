@@ -2,12 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
 <mapper namespace="com.youngsuk.bookstore.repository.BookRepository">
+    <select id="findBookByCategoryList" resultType="com.youngsuk.bookstore.dto.BookDto">
+        SELECT
+            bookCategoryCode, bookCategoryName
+        FROM
+            bookCategoryCodeTable
+    </select>
+
     <select id="selectBookByCategory" resultType="com.youngsuk.bookstore.dto.BookDto">
         SELECT
         bookName, authorName, bookPublishDate,
         bookCost, bookLikeCount
         FROM
-        book
+            bookProductTable
         LEFT JOIN
         author
         ON
