@@ -26,8 +26,8 @@ public class BookController {
    * @return 모든 책의 카테고리를 리턴한다 ex) 인문학, 철학 ..
    */
   @GetMapping
-  public List<BookDto> getCategoryList() {
-    return bookService.cacheBookCategoryList();
+  public List<BookDto> getAllCategory() {
+    return bookService.showAllBookCategory();
   }
 
   @GetMapping(value = "{categoryName}")
