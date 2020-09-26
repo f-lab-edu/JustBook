@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
 
   //TODO. 캐시 key 생성
 //  @Cacheable(cacheNames = "bookCategoryList")
-  public List<BookDto> showAllBookCategory() {
+  public List<BookDto> giveAllBookCategory() {
     return bookRepository.findBookCategoryList();
   }
 
